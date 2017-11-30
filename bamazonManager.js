@@ -93,6 +93,13 @@ function addInv() {
 				}, {
 					type: "input",
 					message: "How many would you like to add",
+					validate: function(value) {
+					if (value.length>0 && !isNaN(value)) {
+					  start = value;
+					  return true;
+					}
+					  return false;
+					}, 					
 					name: "quant"
 				}
 
@@ -122,11 +129,25 @@ function addProd() {
 		{
 			type: "input",
 			message: "What is the price of the item?",
+			validate: function(value) {
+			if (value.length>0 && !isNaN(value)) {
+			  start = value;
+			  return true;
+			}
+			  return false;
+			}, 				
 			name: "price"
 		},
 		{
 			type: "input",
 			message: "How many items do you want to add?",
+			validate: function(value) {
+			if (value.length>0 && !isNaN(value)) {
+			  start = value;
+			  return true;
+			}
+			  return false;
+			}, 				
 			name: "stock_quantity"
 		} 		   
 	]).then(function(data) {

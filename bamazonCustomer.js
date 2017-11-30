@@ -33,7 +33,7 @@ function prompt() {
 			type: "input",
 			message: "Enter the product ID of item you want to purchase: ",
 			validate: function(value) {
-				if (!isNaN(value) && value>1) {
+				if (!isNaN(value) && value > 1) {
 					return true;
 				}
 				return false;
@@ -43,7 +43,7 @@ function prompt() {
 			type: "input",
 			message: "How many would you like to purchase: ",
 			validate: function(value) {
-				if (!isNaN(value) && value>1) {
+				if (!isNaN(value) && value > 1) {
 					return true;
 				}
 				return false;
@@ -57,7 +57,7 @@ function prompt() {
 					console.log('Insufficient quantity!')
 				} 
 				else {
-					connection.query('UPDATE products SET stock_quantity=?, product_sales=product_sales+? WHERE item_id=?', [parseInt(results[0].stock_quantity) - data.quantity,parseInt(data.quantity)*results[0].price, data.product_id], function(error, results, fields) {
+					connection.query('UPDATE products SET stock_quantity=?, product_sales=product_sales+? WHERE item_id=?', [parseInt(results[0].stock_quantity) - data.quantity, parseInt(data.quantity) * results[0].price, data.product_id], function(error, results, fields) {
 						console.log("Purchase complete");
 						setTimeout(buyAgain, 1000);
 
@@ -70,19 +70,19 @@ function prompt() {
 }
 
 function buyAgain() {
-	inquirer
-		.prompt({
-			type: "confirm",
-			name: "again",
-			message: "Would you like to make another purchase?"
-		}).then(function(answer) {
+	inquirer.prompt({
+		type: "confirm",
+		name: "again",
+		message: "Would you like to make another purchase?"
+	}).then(function(answer) {
 
 
-			if (answer.again === true) {
-				display();
-			} else {
-				console.log("Thank you for shopping!");
-				connection.end();
-			}
-		});
+		if (answer.again === true) {
+			display();
+		} 
+		else {
+			console.log("Thank you for shopping!");
+			connection.end();
+		}
+	});
 }
