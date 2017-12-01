@@ -25,7 +25,7 @@ function prompt() {
 		.prompt([{
 				type: "list",
 				message: "What would you like to do?",
-				choices: ["View Products for by Department", "Create New Department","Quit"],
+				choices: ["View Products info by Department", "Create New Department","Quit"],
 				name: "result"
 			}
 
@@ -34,7 +34,7 @@ function prompt() {
 			var action = choice.result;
 
 			switch (action) {
-				case "View Products for by Department":
+				case "View Products info by Department":
 					view();
 					break;
 

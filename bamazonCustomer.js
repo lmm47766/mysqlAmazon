@@ -12,6 +12,7 @@ connection.connect(function(err) {
 
 	if (!err) {
 		display();
+		setTimeout(prompt, 1000);
 	}
 
 });
@@ -22,7 +23,6 @@ function display() {
 	connection.query('SELECT * FROM products', function(error, results, fields) {
 		if (error) throw error;
 		console.table(results);
-		setTimeout(prompt, 1000);
 	});
 }
 
@@ -33,7 +33,7 @@ function prompt() {
 			type: "input",
 			message: "Enter the product ID of item you want to purchase: ",
 			validate: function(value) {
-				if (!isNaN(value) && value > 1) {
+				if (!isNaN(value) && value > 0) {
 					return true;
 				}
 				return false;
@@ -43,7 +43,7 @@ function prompt() {
 			type: "input",
 			message: "How many would you like to purchase: ",
 			validate: function(value) {
-				if (!isNaN(value) && value > 1) {
+				if (!isNaN(value) && value > 0) {
 					return true;
 				}
 				return false;
@@ -59,6 +59,7 @@ function prompt() {
 				else {
 					connection.query('UPDATE products SET stock_quantity=?, product_sales=product_sales+? WHERE item_id=?', [parseInt(results[0].stock_quantity) - data.quantity, parseInt(data.quantity) * results[0].price, data.product_id], function(error, results, fields) {
 						console.log("Purchase complete");
+						display();
 						setTimeout(buyAgain, 1000);
 
 					});
@@ -79,6 +80,7 @@ function buyAgain() {
 
 		if (answer.again === true) {
 			display();
+			setTimeout(prompt, 1000);
 		} 
 		else {
 			console.log("Thank you for shopping!");
